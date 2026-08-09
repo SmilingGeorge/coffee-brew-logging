@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const prisma = require("./lib/prisma");
+const brewRoutes = require("./routes/brews");
 
 const app = express();
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 5050;
 
 app.use(cors());
 app.use(express.json());
+app.use("/api/brews", brewRoutes);
 
 app.get("/api/health", async (req, res) => {
   try {
