@@ -2,17 +2,30 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+const prisma = require("./lib/prisma");
+
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/health", (req, res) => {
-  res.status(200).json({
-    message: "Coffee Brew API is running",
-  });
+app.get("/api/health", async (req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+
+    res.status(200).json({
+      message: "Coffee Brew API is running",
+      database: "connected",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Database connection failed",
+    });
+  }
 });
 
 app.listen(PORT, () => {

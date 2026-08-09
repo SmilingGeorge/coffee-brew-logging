@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Brew {
+  id           Int      @id @default(autoincrement())
+  coffeeName   String
+  brewMethod   String
+  coffeeAmount Float
+  waterAmount  Float
+  brewTime     Int
+  notes        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
