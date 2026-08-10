@@ -8,18 +8,27 @@ router.get("/", async (req, res) => {
   try {
     const { method } = req.query;
 
+    const where = method
+      ? {
+          brewMethod: method,
+        }
+      : undefined;
+
     const brews = await prisma.brew.findMany({
-      where: method
-        ? {
-            brewMethod: method,
-          }
-        : undefined,
+      where,
       orderBy: {
         createdAt: "desc",
       },
     });
 
-    res.status(200).json(brews);
+    const brewCount = await prisma.brew.count({
+      where,
+    });
+
+    res.status(200).json({
+      brews,
+      brewCount,
+    });
   } catch (error) {
     console.error(error);
 
@@ -153,7 +162,9 @@ router.delete("/:id", async (req, res) => {
       where: { id },
     });
 
-    res.status(204).send();
+    res.status(200).json({
+      message: "Brew deleted successfully",
+    });
   } catch (error) {
     console.error(error);
 
