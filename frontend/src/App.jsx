@@ -4,7 +4,8 @@ import BrewForm from "./components/BrewForm";
 import BrewFilter from "./components/BrewFilter";
 import "./App.css";
 
-const API_URL = "http://localhost:5050/api/brews";
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5050/api/brews";
 
 function App() {
   const [brews, setBrews] = useState([]);
