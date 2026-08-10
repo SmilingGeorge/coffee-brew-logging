@@ -1,52 +1,50 @@
 # Deployment
 
-The Coffee Brew Log application is intended to be deployed with the frontend and backend as separate services.
+The Coffee Brew Log application is deployed with the frontend and backend as separate services.
 
 ## Frontend
 
-The React/Vite frontend can be deployed to Vercel.
+The React/Vite frontend is deployed on Vercel.
 
-Build command:
-
-```bash
-npm run build
-```
-
-Output directory:
-
-```text
-dist
-```
-
-The frontend requires the backend API URL to be configured for the deployed environment.
+The frontend communicates with the deployed Express API.
 
 ## Backend
 
-The Express API can be deployed to Render or another Node.js hosting service.
+The Express API is deployed on Render.
 
-The backend requires:
+Backend URL:
 
-```env
-PORT=5050
-DATABASE_URL="file:./dev.db"
-```
+https://coffee-brew-api-uiys.onrender.com
+
+Health check:
+
+https://coffee-brew-api-uiys.onrender.com/api/health
+
+## Database
+
+The application uses PostgreSQL hosted on Supabase.
+
+Prisma is used as the ORM.
+
+The production database connection is provided through the `DATABASE_URL` environment variable.
+
+Database credentials are not committed to the repository.
 
 ## Local Development
 
 The application was tested locally with:
 
-* Frontend: `http://localhost:5173`
-* Backend: `http://localhost:5050`
-* Health check: `http://localhost:5050/api/health`
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5050`
+- Health check: `http://localhost:5050/api/health`
 
-## Deployment Status
+## Deployment Configuration
 
-Deployment URL will be added here after the production deployment has been completed.
+### Frontend
 
-## Troubleshooting
+The Vite frontend can be deployed to Vercel.
 
-The backend was initially tested on port 5000. The port was changed to 5050 to avoid a conflict with a service already using port 5000 on the development machine.
+Build command:
 
-The backend API was then verified using the `/api/health` endpoint and `curl`.
-
-Prisma was configured with SQLite for local development.
+```bash
+npm run build
